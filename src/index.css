@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto Slab', serif;
+}
+.app{
+    max-width: none !important;
+    padding-inline-start: 0 !important;
+
+
+    
+    -webkit-margin-start: none !;
+    margin-inline-start: auto;
+    -webkit-margin-end: auto;
+    margin-inline-end: auto;
+    max-width: var(--chakra-sizes-container-lg);
+    -webkit-padding-start: var(--chakra-space-6);
+    padding-inline-start: var(--chakra-space-6);
+    -webkit-padding-end: var(--chakra-space-6);
+    padding-inline-end: 0 !important;
+    min-height: 87.5vh;
+}
+
+.bounce svg {
+	width: 60px;
+	display: block;
+	text-align: center;
+	color:#521B41;
+	font:normal 45px 'FontAwesome';
+	line-height:60px;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+.fa-angle-double-down:before {content: "\f107";}
+
+
+.bounce {
+    cursor: pointer;
+	position: absolute;
+	bottom: 50px;
+	left: 50% ;
+	width: 60px;
+	height: 60px ;
+	margin-left:-30px;
+	border: 2px solid #521B41;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
+	-ms-border-radius:50%;
+	border-radius:50%;
+	animation: bounce 2s infinite;
+	-webkit-animation: bounce 2s infinite;
+	-moz-animation: bounce 2s infinite;
+	-o-animation: bounce 2s infinite;
+}
+ 
+
+@-webkit-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
+	40% {-webkit-transform: translateY(-30px);}
+	60% {-webkit-transform: translateY(-15px);}
+}
+ 
+@-moz-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+	40% {-moz-transform: translateY(-30px);}
+	60% {-moz-transform: translateY(-15px);}
+}
+ 
+@-o-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+	40% {-o-transform: translateY(-30px);}
+	60% {-o-transform: translateY(-15px);}
+}
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-30px);}
+	60% {transform: translateY(-15px);}
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #521B41;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #8f4267;
+}
+
+.chakra-input,
+.chakra-textarea {
+    color: #250a1dcf;
+}
+
+.chakra-button.active-nav, p.nav-link.active-nav  {
+    color: #521B41 ;
+    text-decoration: underline;
+}
+nav p.nav-link:hover{
+text-decoration: underline;
+}
+.chakra-modal__close-btn {
+    background: none;
+    font-size: 18px !important;
+    color:#521B41
+}
+
+
+/* Responsive css */
+@media (max-width: 768px) and (min-width: 719px) {
+    .brand_title{
+        font-size: 24px !important;
+    }
+   
+}
+@media (max-width: 719px) and (min-width: 445px) {
+    .brand_title{
+        font-size: 24px !important;
+    }
+   
+}
+@media (max-width: 445px) {
+.brand_title{
+    font-size: 16px !important;
+}
+.brand img{
+    width:60px;
+}
+.carousel{ 
+    height: 400px !important;
+}
+.carousel .bounce{
+    display: none;
+}
+}
+
+/* Responsive css */
