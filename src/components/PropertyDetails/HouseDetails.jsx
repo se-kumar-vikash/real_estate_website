@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { HouseContext } from "../../context/HouseContext";
 import Form from "./Form";
+import Carousel from "../Slider/Carousel";
 
 const HouseDetails = () => {
 
@@ -44,9 +45,9 @@ const HouseDetails = () => {
       </Stack>
 
       <Stack direction={{ base: 'column', lg: 'row' }} px="10px" gap='6' align='flex-start'>
-        <VStack align='left' maxW='640px'>
-          <Image src={searchedHouse.imageLg} alt='house' />
-
+        <VStack align='left' width={'100%'}>
+          {/* <Image src={searchedHouse.imageLg} alt='house' /> */}
+          <Carousel source="propertiesDetail" data={searchedHouse.carouselImage}/>
           <Stack py='10px' spacing={{ sm: '3', md: '5' }} direction={{ base: 'column', md: 'row' }}>
             <HStack>
               <BiBed style={{ color: "#D53F8C" }} />
@@ -68,8 +69,12 @@ const HouseDetails = () => {
 
         </VStack>
 
-        <Form searchedHouse={searchedHouse} source={"property"} />
       </Stack>
+      <Stack mt={20}>
+        <HStack mx={'auto'} maxW={"400px"}>
+        <Form searchedHouse={searchedHouse} source={"property"} />
+        </HStack>
+        </Stack>
     </>
   )
 }

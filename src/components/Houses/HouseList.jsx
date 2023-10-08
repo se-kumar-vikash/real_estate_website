@@ -10,8 +10,8 @@ const HouseList = ({displayItemCount}) => {
 
   if (isLoading) {
     return (
-      <Center>
-        <Spinner align='center' color='pink.500' />
+      <Center margin={'50px'}>
+        <Spinner align='center' color='pink.700' />
       </Center>
     )
   }
