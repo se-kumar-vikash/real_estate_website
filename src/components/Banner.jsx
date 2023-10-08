@@ -41,7 +41,11 @@ const Banner = () => {
       </Container>
 
       <Grid my='3'
-        rowGap='2' gridTemplateColumns='repeat(auto-fit, minmax(300px, 1fr))' mt="30px" mb="30px"
+        rowGap='2'
+         gridTemplateColumns='repeat(auto-fit, minmax(300px, 1fr))'
+        //  gridTemplateColumns='repeat(1.5fr 1fr)'
+
+         mt="30px" mb="30px"
       >
 
         <GridItem justify='center' align='center' pb="40px" mr="8px">

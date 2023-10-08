@@ -1,30 +1,26 @@
 import { Textarea, Image, VStack, HStack, Box, Text, Input, Button, Grid, GridItem, Stack, Flex, Heading, Divider, Link } from '@chakra-ui/react'
 import emailjs from 'emailjs-com';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { agentData } from '../../data';
 import AlertBox from '../AlertBox';
+import { useForm } from 'react-hook-form';
 const Form = ({ searchedHouse, source }) => {
 
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
-    });
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.email })
-    }
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
 
     const [submitted, SetSubmitted] = useState(false);
+    const formRef=useRef(null);
     function sendEmail(e) {
-        e.preventDefault();
+        // console.log(formRef.current); return false;
+        // e.preventDefault();
         //This is important, i'm not sure why, but the email won't send without it
-        emailjs.sendForm('service_ep2eeqr', 'template_kfjmxkb', e.target, 'AJzSZMJKayJb2-EuS')
+        emailjs.sendForm('service_ep2eeqr', 'template_kfjmxkb', formRef, 'AJzSZMJKayJb2-EuS')
             .then((result) => {
                 setTimeout(() => {
                     SetSubmitted(true);
-                },3000)
+                }, 3000)
             }, (error) => {
                 console.log(error.text);
             });
@@ -63,7 +59,7 @@ const Form = ({ searchedHouse, source }) => {
                     ))}
                 </Grid>
                 : ""}
-            <VStack border='1px' borderColor='pink.100' boxShadow='md' px='5' py='6' mx="50px">
+            <VStack border='1px' borderColor='pink.100' boxShadow='md' px='5' py='6' mx="20px">
                 {source == "property" ?
 
                     <HStack>
@@ -79,22 +75,99 @@ const Form = ({ searchedHouse, source }) => {
                     submitted && <AlertBox />
                 }
                 <VStack my='3px' spacing='2px' >
-                    <form onSubmit={sendEmail}>
-                        <Input mt='3' mb='2' placeholder="Name*" onChange={handleChange} name="name"
+                    <form onSubmit={handleSubmit(sendEmail)} ref={formRef}>
+                        <Input mt='3' mb='2' placeholder="Name*" name="name"
+                            {...register("name",
+                                {
+                                    required: "Name is required.",
+                                    minLength: {
+                                        value: 3,
+                                        message: "Please enter minimun 3 characters."
+                                    },
+                                    maxLength: {
+                                        value: 50,
+                                        message: "Please enter maximum 50 characters."
+                                    }
+                                })}
                             _focusVisible={{
                                 borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
                             }} />
-                        <Input placeholder="Email*" onChange={handleChange} name="email" _focusVisible={{
-                            borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
-                        }} />
-                        <Input my='2' placeholder="Phone*" onChange={handleChange} name="phone" _focusVisible={{
-                            borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
-                        }} />
-                        <Textarea my='2' placeholder='Message*' onChange={handleChange} name="message" size='sm' defaultValue='Hello, I am interested in [Modern apartment]' _focusVisible={{
+
+                        {errors?.name &&
+                            <label className='error'>{errors.name.message}</label>
+                        }
+                        <Input placeholder="Email*" name="email"
+                            {...register("email",
+                                {
+                                    required: "Email is required.",
+                                    pattern: {
+                                        value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                        message: "Please Enter Valid Email."
+                                    },
+                                    maxLength: {
+                                        value: 50,
+                                        message: "Please enter maximum 50 characters."
+                                    }
+                                })}
+
+                            _focusVisible={{
+                                borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
+                            }} />
+                        {errors?.email &&
+                            <label className='error'>{errors.email.message}</label>
+                        }
+                        <Input my='2' placeholder="Phone*" name="phone"
+
+                            {...register("phone",
+                                {
+                                    required: "Phone Number is required.",
+                                    pattern: {
+                                        value: /^\d+$/,
+                                        message: "Please Enter Valid Phone Number."
+                                    },
+                                    maxLength: {
+                                        value: 10,
+                                        message: "Please enter Valid Phone Numbers."
+                                    },
+                                    minLength: {
+                                        value: 10,
+                                        message: "Please enter Valid Phone Numbers."
+                                    }
+                                })}
+
+                            maxLength={"10"}
+                            _focusVisible={{
+                                borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
+                            }} />
+                        {errors?.phone &&
+                            <label className='error'>{errors.phone.message}</label>
+                        }
+
+                        <Textarea my='2' placeholder='Message*' name="message" size='sm'
+                         defaultValue={`${searchedHouse ? `Hello, I am interested in : ${searchedHouse.name} which is located in ${searchedHouse.address}`:""}`}
+                         {...register("message",
+                         {
+                             required: "Message is required.",
+                            
+                             maxLength: {
+                                 value: 500,
+                                 message: "Please enter maximum 500 characters."
+                             },
+                             minLength: {
+                                 value: 5,
+                                 message: "Please enter minimum 5 characters."
+                             }
+                         })}
+
+                        _focusVisible={{
                             borderColor: '#8f4267', boxShadow: '0 0 0 1px #8f4267'
                         }}
                             borderRadius={"8px"}
                         />
+
+                        {errors?.message &&
+                            <label className='error'>{errors.message.message}</label>
+                        }
                         <HStack my='2'>
                             <Button w='full' _hover={{ bg: "#8f4267" }} whiteSpace={"normal"} type='submit' px='4' bg="pink.900"  >Send Message</Button>
                             <Button w={{ base: 'full', md: '50%' }} variant='outline' borderColor={"#8f4267"} color={"#8f4267"}
